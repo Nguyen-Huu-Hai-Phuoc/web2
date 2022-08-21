@@ -1,0 +1,7 @@
+<ul class="list-group " >
+    <li class="list-group-item" ng-repeat="mh in cacmonhoc|orderBy:'Name'|limitTo: pageSizes:stars">
+        <a href="#!quiz/{{mh.Id}}/{{mh.Name}}">{{mh.Name|uppercase}}</a>
+    </li>
+</ul>
+<button class="btn btn-success mt-2" ng-click="lui()">Prev</button>
+<button class="btn btn-info mt-2" ng-click="tiep()">Next</button>

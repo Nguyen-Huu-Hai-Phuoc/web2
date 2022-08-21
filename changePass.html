@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <form name="formChange">
+    <div class="row">
+      <div class="col">
+        <label>Tên đăng nhập</label>
+        <input type="text" class="form-control" required minlength="3" maxlength="15" ng-model="username" name="tenDN" />
+        <em ng-show="formChange.tenDN.$invalid" class="text-white">Nhập từ 3 đến 15 ký tự.</em>
+      </div>
+      <div class="col">
+        <label>Mật khẩu</label>
+        <input type="password" class="form-control" required minlength="3" maxlength="20" ng-model="password"  name="matkhau" />
+        <em ng-show="formChange.matkhau.$invalid" class="text-white">Mật khẩu từ 3 đến 10 ký tự.</em>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <label>Mật khẩu mới</label>
+        <input type="text" class="form-control" required minlength="3" maxlength="20" ng-model="password1"  name="matkhau1" />
+        <em ng-show="formChange.matkhau1.$invalid" class="text-white">Mật khẩu mới từ 3 đến 10 ký tự.</em>
+      </div>
+      <div class="col">
+        <label>Xác nhận mật khẩu mới</label>
+        <input type="text" class="form-control" required minlength="3" maxlength="20" ng-model="password2"  name="matkhau2" />
+        <em ng-show="formChange.matkhau2.$invalid" class="text-white">Hãy nhập mật khẩu mới lần nữa.</em>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <button type="submit" class="btn btn-warning m-auto">Xác nhận</button>
+    </div>
+  </form>
+</div>

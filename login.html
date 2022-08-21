@@ -1,0 +1,19 @@
+<div class="container mt-5 w-75">
+  <form name="frmLG">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Tên đăng nhập</label>
+      <input type="text" class="form-control" required minlength="3" maxlength="15" name="username" ng-model="username" />
+      <em ng-show="frmLG.username.$invalid" class="text-white">Nhập từ 3 đến 15 ký tự.</em>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" required minlength="3" maxlength="20" name="password" ng-model="password" />
+      <em ng-show="frmLG.password.$invalid" class="text-white">Mật khẩu từ 3 đến 10 ký tự.</em>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="dangNhap()">Đăng nhập</button>
+  </form>
+</div>

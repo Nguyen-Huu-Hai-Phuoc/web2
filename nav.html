@@ -1,0 +1,36 @@
+<a class="navbar-brand" href="#!home">Trang chủ</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Giới thiệu <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Góp ý</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Liên hệ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Hỏi đáp</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-expanded="false">
+              <span ng-show="student == null">Tài khoản</span>
+              <span ng-show="student != null">{{tennd}}</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" ng-show="student == null" href="#!sigin">Đăng ký</a>
+              <a class="dropdown-item" ng-show="student == null" href="#!login">Đăng nhập</a>
+              <a class="dropdown-item border-bottom" ng-show="student == null" href="#!quenmk">Quên mật khẩu</a>
+              <a class="dropdown-item" href="#" ng-click="dangXuat()">Đăng xuât</a>
+              <a class="dropdown-item" href="#!changePass">Đổi mật khẩu</a>
+              <a class="dropdown-item" href="#!editAccount">Cập nhật tài khoản</a>
+            </div>
+          </li>
+        </ul>
+      </div>

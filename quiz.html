@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="card mt-4" ng-repeat="ch in caccauhoi | limitTo: pageSize:star">
+        <div class="card-header bg-info text-white">
+          <label class="text-uppercase"> --{ {{tenMH}} }--</label>
+          <span class="float-right">
+            {{time|date:'hh:mm:ss a'}}
+          </span>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Câu hỏi:&nbsp; {{ch.Text}}</p>
+          <hr/>
+          <p class="card-text" ng-repeat="pa in ch.Answers">
+              <input type="radio" name="pa" value="{{pa.Id}}" ng-click="kiemtraPA(pa.Id, ch.AnswerId, ch.Marks)" /> {{pa.Text}}
+          </p>
+        </div>
+        <div class="card-footer text-muted">
+          Mark: {{diem}}
+        </div>
+      </div>
+  <div
+    class="btn-toolbar mt-3"
+    role="toolbar"
+    aria-label="Toolbar with button groups"
+  >
+    <div class="btn-group mr-2 m-auto" role="group" aria-label="First group">
+      <button type="button" class="rounded-circle" ng-click="firt()">
+        <i class="bi bi-skip-backward-circle-fill"></i>
+      </button>
+      <button type="button" class="rounded-circle ml-4" ng-click="prev()">
+        <i class="bi bi-skip-start-circle-fill"></i>
+      </button>
+      <button type="button" class="rounded-circle ml-4" ng-click="next()">
+        <i class="bi bi-skip-end-circle-fill"></i>
+      </button>
+      <button type="button" class="rounded-circle ml-4" ng-click="last()">
+        <i class="bi bi-skip-forward-circle-fill"></i>
+      </button>
+    </div>
+  </div>
+</div>

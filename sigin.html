@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <form name="frmSG">
+    <div class="form-group">
+      <input type="text" class="form-control" id="formGroupExampleInput"
+       placeholder="Tên đăng nhập" ng-model="student.username" name="tenDN" required maxlength="3" minlength="15"/>
+       <em ng-show="frmSG.tenDN.$invalid" class="text-white">Tên đăng nhập từ 3 đến 15 ký tự.</em>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="formGroupExampleInput2"
+        placeholder="Password" ng-model="student.password" name="matkhau" required minlength="3" maxlength="10"/>
+        <em ng-show="frmSG.matkhau.$invalid" class="text-white">Bạn chưa nhập mật khẩu.</em>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="formGroupExampleInput3"
+        placeholder="Họ và tên" ng-model="student.fullname" required name="tenDD" maxlength="20"/>
+        <em ng-show="frmSG.tenDD.$invalid" class="text-white">Bạn chưa nhập họ tên.</em>
+    </div>
+    <div class="form-group">
+      <input type="email" class="form-control" 
+        placeholder="Email" ng-model="student.email" name="email" required/>
+        <em ng-show="frmSG.email.$invalid" class="text-white">Email không được để trống.</em>
+    </div>
+    <div class="form-group d-lg-flex text-white">
+      <label >Giới tính:</label>
+      <div class="form-check col-3 ml-3">
+        <input class="form-check-input" type="radio"
+          name="gender" value="Nam" checked ng-model="student.gender"/>
+        <label class="form-check-label" > Nam </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio"
+          name="gender" value="Nu" ng-model="student.gender"/>
+        <label class="form-check-label" > Nữ </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="date" class="form-control" name="ngaysinh" required ng-model="student.birthday"/>
+      <em ng-show="frmSG.ngaysinh.$invalid" class="text-white">Ngày sinh không được để trống.</em>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" required min="0" name="hocphi" placeholder="Học phí" ng-model="student.schoolfee"/>
+        <em ng-show="frmSG.hocphi.$invalid" class="text-white">Học phí phải lớn hơn 0.</em>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" required min="0" placeholder="Điểm" name="diem" ng-model="student.marks"/>
+        <em ng-show="frmSG.diem.$invalid" class="text-white">Điểm phải lớn hơn 0.</em>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-info mt-4" ng-click="dangKy()">Đăng ký</button>
+    </div>
+  </form>
+</div>

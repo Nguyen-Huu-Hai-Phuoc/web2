@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <title>Assigment</title>
+</head>
+
+<body ng-app="myApp" ng-controller="asm">
+  <div class="container">
+    <header class="row">
+      <img class="banner" src="https://ap.poly.edu.vn/images/Banner-AP.png" />
+    </header>
+    <nav class="row navbar navbar-expand-lg navbar-light bg-light" ng-include="'nav.html'">
+      
+    </nav>
+    <div class="row">
+      <aside class="col-sm-3 mt-3 mb-3">
+        <div class="card mt-2 mb-2">
+          <div class="card-header text-uppercase">
+            <i class="bi bi-list-ul"></i>&nbsp; Các môn học
+          </div>
+          <div class="card-body">
+            <div class="listmonhoc" ng-include="'cacmonhoc.html'"></div>
+          </div>
+        </div>
+      </aside>
+      <article class="col-sm-9">
+        <ng-view></ng-view>
+      </article>
+    </div>
+
+    <footer class="row">
+      <p class="m-auto text-center text-white">
+        PS18371 - Nguyễn Hữu Hải Phước <br />
+        Email: phuocnhhps18371@fpt.edu.vn
+      </p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://code.angularjs.org/1.8.2/angular-route.min.js"></script>
+  <link rel="stylesheet" href="js/jquery.min.js" />
+</body>
+
+</html>
+
+<script>
+  var app = angular.module("myApp", ["ngRoute"]);
+  app.config(function ($routeProvider) {
+    $routeProvider
+      .when("/sigin", { templateUrl: "sigin.html", controller: "asm" })
+      .when("/login", { templateUrl: "login.html", controller: "asm" })
+      .when("/changePass", { templateUrl: "changePass.html", controller: "asm"})
+      .when("/editAccount", { templateUrl: "editAccount.html", controller: "asm"})
+      .when("/quenmk", { templateUrl: "quenmk.html", controller: "asm" })
+      .when("/home", { templateUrl: "home.html", controller: "asm" })
+      .when("/quiz/:idMH/:tenMH", { templateUrl: "quiz.html", controller: "tnctrl"})
+      .otherwise({ template: "" });
+  });
+
+  app.controller("tnctrl", function ($scope, $http, $routeParams, $interval) {
+    $scope.caccauhoi = [];
+    $scope.idMH = $routeParams.idMH;
+    $scope.tenMH = $routeParams.tenMH;
+    $http.get("database/" + $scope.idMH + ".js").then(
+      function (d) {
+        $scope.caccauhoi = d.data;
+      },
+      function (d) {
+        alert("Erorr:");
+      }
+    );
+
+    $scope.time = new Date();
+    $interval(function () {
+        $scope.time = new Date();
+      }, 1000);
+    
+    $scope.kiemtraPA = function(idPA, idPADung, marks){
+      if(idPA == idPADung) {
+        $scope.diem += marks;
+      }else{
+        alert("Sai!");
+      } 
+    }
+  });
+
+  app.controller("asm", function ($scope, $http, $rootScope) {
+    $scope.username = sessionStorage.getItem("username");
+    $scope.diem=0;
+
+    $scope.student;
+    $scope.students = [];
+    $http.get("js/students.js").then(
+      function (d) {
+        $scope.students = d.data;
+      },
+      function (d) {
+        alert("Erorr:");
+      }
+    );
+
+    $scope.cacmonhoc = [];
+    $http.get("js/monhoc.js").then(
+      function (d) {
+        $scope.cacmonhoc = d.data;
+      },
+      function (d) {
+        alert("Erorr:");
+      }
+    );
+
+    $scope.dangKy = function () {
+      $scope.students.push($scope.student);
+      alert("Sign Up Success!");
+      document.location = "/index.html#!/login";
+    };
+
+    $scope.dangNhap = function () {
+      var row = false;
+      for (var i = 0; i < $scope.students.length; i++) {
+        if (
+          $scope.students[i].username == $scope.username &&
+          $scope.students[i].password == $scope.password
+        ) {
+          row = true;
+          $scope.student = $scope.students[i].username;
+          $scope.tennd = $scope.students[i].fullname;
+          $scope.student = angular.copy($scope.students[i]);
+          break;
+        }
+      }
+      if (row) {
+        $scope.isLogin = true;
+        sessionStorage.setItem("username", $scope.student.username);
+        sessionStorage.setItem("user", JSON.stringify($scope.student));
+        document.location = "/index.html#!/home";
+      } else {
+        $scope.isLogin = false;
+        sessionStorage.setItem("user", null);
+        document.location = "/index.html#!/login";
+      }
+    };
+
+    $scope.dangXuat = function () {
+      $scope.username = "";
+      $scope.isLogin = false;
+      sessionStorage.removeItem("username");
+      sessionStorage.removeItem("user");
+      document.location = "/index.html#!/login.html";
+    };
+
+    $scope.editAccount = function() {
+
+    };
+
+    $scope.row= false;
+    $scope.quenmatkhau= function() {
+      for(var i=0; i<$scope.students.length; i++){
+        if($scope.email == $scope.students[i].email ){
+          $scope.row=true; 
+          $scope.student = $scope.students[i].password;
+          $scope.student = angular.copy($scope.students[i]);
+          break;
+        }
+      }
+      if($scope.row){
+        $scope.hienmk = $scope.student.password;
+        sessionStorage.setItem("hienmk", $scope.student.password);
+      } else{
+        alert("Email không chính xác hoặc không tồn tại!");
+        sessionStorage.setItem("hienmk", null);
+      }
+    };
+
+    // Phân trang câu hỏi
+    $scope.pageSize = 1;
+    $scope.star = 0;
+    $scope.next = function () {
+      if ($scope.star < $scope.cacmonhoc.length - $scope.pageSize) {
+        $scope.star += $scope.pageSize;
+      }
+    };
+    $scope.prev = function () {
+      if ($scope.star > 0) {
+        $scope.star -= $scope.pageSize;
+      }
+    };
+    $scope.firt = function () {
+      $scope.star = 0;
+    };
+    $scope.last = function () {
+      sotrang = Math.ceil($scope.cacmonhoc.length / $scope.pageSize);
+      $scope.star = (sotrang - 1) * $scope.pageSize;
+    };
+
+    //Phân trang môn học
+    $scope.pageSizes = 5;
+    $scope.stars = 0;
+    $scope.tiep = function () {
+      if ($scope.stars < $scope.cacmonhoc.length - $scope.pageSizes) {
+        $scope.stars += $scope.pageSizes;
+      }
+    };
+    $scope.lui = function () {
+      if ($scope.stars > 0) {
+        $scope.stars -= $scope.pageSizes;
+      }
+    };
+  });
+</script>
